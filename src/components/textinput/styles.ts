@@ -23,3 +23,9 @@ export const InputBase = styled(TextInput)`
   font-size: 18px;
   flex: 1;
 `;
+
+export const ErrorLabel = styled.Text`
+  font-size: 18px;
+  color: ${({ theme }) => theme.colors.red};
+  bottom: -5px;
+`;

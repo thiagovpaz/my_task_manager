@@ -2,12 +2,14 @@ import { FlatList, View } from 'react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 
 import { MainStackParamList } from '../../navigation';
+import { useTaskStore } from '../../store';
 
 import {
   Container,
   Header,
   Title,
   Content,
+  ListEmpty,
   QuickTaskContainer,
   QuickTaskInput,
   QuickTaskButton,
@@ -15,6 +17,7 @@ import {
 
 const HomeScreen = () => {
   const { navigate } = useNavigation<NavigationProp<MainStackParamList>>();
+  const { tasks } = useTaskStore();
 
   return (
     <Container>
@@ -24,10 +27,7 @@ const HomeScreen = () => {
 
       <Content>
         <FlatList
-          data={[
-            { id: 1, name: 'Teste' },
-            { id: 2, name: 'Teste' },
-          ]}
+          data={tasks}
           renderItem={() => (
             <View
               style={{ width: '100%', height: 40, backgroundColor: 'red' }}
@@ -36,6 +36,7 @@ const HomeScreen = () => {
           ItemSeparatorComponent={() => (
             <View style={{ width: '100%', height: 10 }} />
           )}
+          ListEmptyComponent={<ListEmpty>Nenhuma tarefa</ListEmpty>}
         />
 
         <QuickTaskContainer>

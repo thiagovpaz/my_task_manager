@@ -26,6 +26,12 @@ export const Content = styled.View`
   padding: 15px;
 `;
 
+export const ListEmpty = styled.Text`
+  flex: 1;
+  font-size: 18px;
+  text-align: center;
+`;
+
 export const QuickTaskContainer = styled.View`
   position: absolute;
   bottom: 40px;
@@ -34,7 +40,7 @@ export const QuickTaskContainer = styled.View`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
 `;
 
 export const QuickTaskInput = styled(TextInput)`
