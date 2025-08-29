@@ -23,7 +23,7 @@ export const Title = styled.Text`
 
 export const Content = styled.View`
   flex: 1;
-  padding: 15px;
+  padding: 0 15px;
 `;
 
 export const FilterContainer = styled.View`
@@ -90,14 +90,16 @@ export const ListEmpty = styled.Text`
 
 export const QuickTaskContainer = styled.View`
   position: absolute;
-  bottom: 40px;
-  left: 15px;
-  right: 15px;
+  bottom: 20px;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 15px;
   background-color: #fff;
+  border-radius: 10px;
+  margin: 0 15px;
+  padding: 15px;
+  elevation: 10;
 `;
 
 export const QuickTaskInput = styled(TextInput)`

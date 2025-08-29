@@ -76,28 +76,8 @@ const HomeScreen = () => {
       </Header>
 
       <Content>
-        <FilterContainer>
-          <FilterButton
-            active={filter === 'all'}
-            onPress={() => setFilter('all')}
-          >
-            Todas
-          </FilterButton>
-          <FilterButton
-            active={filter === 'completed'}
-            onPress={() => setFilter('completed')}
-          >
-            Concluídas
-          </FilterButton>
-          <FilterButton
-            active={filter === 'active'}
-            onPress={() => setFilter('active')}
-          >
-            Ativas
-          </FilterButton>
-        </FilterContainer>
-
         <FlatList
+          keyExtractor={(item) => item.id}
           data={data}
           renderItem={({ item }) => (
             <ItemContainer>
@@ -128,28 +108,53 @@ const HomeScreen = () => {
             <View style={{ width: '100%', height: 10 }} />
           )}
           ListEmptyComponent={<ListEmpty>Nenhuma tarefa</ListEmpty>}
+          ListHeaderComponent={
+            <FilterContainer>
+              <FilterButton
+                active={filter === 'all'}
+                onPress={() => setFilter('all')}
+              >
+                Todas
+              </FilterButton>
+              <FilterButton
+                active={filter === 'completed'}
+                onPress={() => setFilter('completed')}
+              >
+                Concluídas
+              </FilterButton>
+              <FilterButton
+                active={filter === 'active'}
+                onPress={() => setFilter('active')}
+              >
+                Ativas
+              </FilterButton>
+            </FilterContainer>
+          }
+          style={{
+            marginBottom: 100,
+          }}
+        />
+      </Content>
+
+      <QuickTaskContainer>
+        <QuickTaskInput
+          placeholder="Nova tarefa"
+          onChangeText={setQuickTask}
+          value={quickTask || ''}
         />
 
-        <QuickTaskContainer>
-          <QuickTaskInput
-            placeholder="Nova tarefa"
-            onChangeText={setQuickTask}
-            value={quickTask || ''}
-          />
-
-          <QuickTaskButton
-            onPress={() => {
-              if (quickTask) {
-                handleAddQuickTask();
-              } else {
-                navigate('ManageTaskScreen', {});
-              }
-            }}
-          >
-            Nova
-          </QuickTaskButton>
-        </QuickTaskContainer>
-      </Content>
+        <QuickTaskButton
+          onPress={() => {
+            if (quickTask) {
+              handleAddQuickTask();
+            } else {
+              navigate('ManageTaskScreen', {});
+            }
+          }}
+        >
+          Nova
+        </QuickTaskButton>
+      </QuickTaskContainer>
     </Container>
   );
 };
