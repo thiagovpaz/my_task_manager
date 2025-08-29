@@ -1,9 +1,11 @@
-import { Container, Title } from './styles';
+import { Container, Header, Title } from './styles';
 
 const HomeScreen = () => {
   return (
     <Container>
-      <Title>Home</Title>
+      <Header>
+        <Title>Home</Title>
+      </Header>
     </Container>
   );
 };

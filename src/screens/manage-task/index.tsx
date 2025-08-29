@@ -1,9 +1,11 @@
-import { Container, Title } from './styles';
+import { Container, Header, Title } from './styles';
 
 const ManageTaskScreen = () => {
   return (
     <Container>
-      <Title>Gerenciar Task</Title>
+      <Header>
+        <Title>Gerenciar Task</Title>
+      </Header>
     </Container>
   );
 };
