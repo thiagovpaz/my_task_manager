@@ -3,10 +3,27 @@ import {
   TextInputProps as TextInputPropsRN,
 } from 'react-native';
 
-interface TextInputProps extends TextInputPropsRN {}
+import {
+  FieldContainer,
+  InputLabel,
+  InputContainer,
+  InputBase,
+} from './styles';
 
-const TextInput: React.FC<TextInputProps> = (props) => {
-  return <TextInputRN {...props} />;
+interface TextInputProps extends TextInputPropsRN {
+  label?: string;
+}
+
+const TextInput: React.FC<TextInputProps> = ({ label, ...rest }) => {
+  return (
+    <FieldContainer style={rest.style}>
+      {label && <InputLabel>{label}</InputLabel>}
+
+      <InputContainer>
+        <InputBase {...rest} />
+      </InputContainer>
+    </FieldContainer>
+  );
 };
 
 export { TextInput };

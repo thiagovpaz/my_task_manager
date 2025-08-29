@@ -15,7 +15,7 @@ const MainNavigation = () => {
   return (
     <NavigationContainer>
       <Main.Navigator
-        initialRouteName="ManageTaskScreen"
+        initialRouteName="HomeScreen"
         screenOptions={{
           headerShown: false,
           animation: 'fade_from_bottom',

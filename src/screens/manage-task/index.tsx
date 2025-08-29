@@ -12,9 +12,16 @@ const ManageTaskScreen = () => {
       </Header>
 
       <Content>
-        <TextInput placeholder="Título" />
+        <TextInput label="Título" placeholder="Título" />
 
-        <TextInput placeholder="Descrição" />
+        <TextInput
+          label="Descrição"
+          placeholder="Descrição"
+          multiline
+          numberOfLines={10}
+          style={{ minHeight: 150 }}
+          textAlignVertical="top"
+        />
 
         <Switch />
 

@@ -20,4 +20,5 @@ export const Title = styled.Text`
 export const Content = styled.View`
   flex: 1;
   padding: 15px;
+  gap: 15px;
 `;
