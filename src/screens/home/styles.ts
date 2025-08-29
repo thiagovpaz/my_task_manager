@@ -26,6 +26,27 @@ export const Content = styled.View`
   padding: 15px;
 `;
 
+export const FilterContainer = styled.View`
+  padding: 15px;
+  flex-direction: row;
+  justify-content: center;
+  gap: 15px;
+`;
+
+interface FilterButtonProps {
+  active?: boolean;
+}
+
+export const FilterButton = styled(Button)<FilterButtonProps>`
+  background-color: gray;
+  padding: 10px;
+  ${({ active }) =>
+    active &&
+    css`
+      background-color: ${({ theme }) => theme.colors.red};
+    `}
+`;
+
 export const ItemContainer = styled.View`
   flex: 1;
   flex-direction: row;

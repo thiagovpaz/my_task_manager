@@ -12,6 +12,8 @@ import {
   Header,
   Title,
   Content,
+  FilterContainer,
+  FilterButton,
   ItemContainer,
   ItemTitle,
   ItemButtonsContainer,
@@ -26,7 +28,15 @@ const HomeScreen = () => {
   const [quickTask, setQuickTask] = useState<string | null>(null);
 
   const { navigate } = useNavigation<NavigationProp<MainStackParamList>>();
-  const { tasks, addTask, toggleTask, removeTask } = useTaskStore();
+  const {
+    filter,
+    tasks,
+    addTask,
+    toggleTask,
+    removeTask,
+    getFilteredTasks,
+    setFilter,
+  } = useTaskStore();
 
   const handleAddQuickTask = useCallback(() => {
     if (quickTask) {
@@ -57,6 +67,8 @@ const HomeScreen = () => {
     ]);
   }, []);
 
+  let data = filter !== 'all' ? getFilteredTasks() : tasks;
+
   return (
     <Container>
       <Header>
@@ -64,8 +76,29 @@ const HomeScreen = () => {
       </Header>
 
       <Content>
+        <FilterContainer>
+          <FilterButton
+            active={filter === 'all'}
+            onPress={() => setFilter('all')}
+          >
+            Todas
+          </FilterButton>
+          <FilterButton
+            active={filter === 'completed'}
+            onPress={() => setFilter('completed')}
+          >
+            Concluídas
+          </FilterButton>
+          <FilterButton
+            active={filter === 'active'}
+            onPress={() => setFilter('active')}
+          >
+            Ativas
+          </FilterButton>
+        </FilterContainer>
+
         <FlatList
-          data={tasks}
+          data={data}
           renderItem={({ item }) => (
             <ItemContainer>
               <ItemTitle completed={item.completed}>{item.title}</ItemTitle>

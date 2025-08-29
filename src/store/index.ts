@@ -10,17 +10,21 @@ export type Task = {
 };
 
 export type TaskState = {
+  filter: 'all' | 'active' | 'completed';
   tasks: Task[];
   addTask: (task: Task) => void;
   toggleTask: (id: string) => void;
   removeTask: (id: string) => void;
   updateTask: (id: string, task: Task) => void;
   getTaskById: (id: string) => Task | undefined;
+  setFilter: (filter: 'all' | 'active' | 'completed') => void;
+  getFilteredTasks: () => Task[];
 };
 
 export const useTaskStore = create<TaskState>()(
   persist(
     (set, get) => ({
+      filter: 'all',
       tasks: [],
       addTask: (task: Task) =>
         set((state) => ({
@@ -43,6 +47,18 @@ export const useTaskStore = create<TaskState>()(
           ),
         })),
       getTaskById: (id) => get().tasks.find((task) => task.id === id),
+      setFilter: (filter) => set({ filter }),
+      getFilteredTasks: () => {
+        const { tasks, filter } = get();
+        switch (filter) {
+          case 'active':
+            return tasks.filter((task) => !task.completed);
+          case 'completed':
+            return tasks.filter((task) => task.completed);
+          default:
+            return tasks;
+        }
+      },
     }),
     {
       name: 'my-todo-storage',
