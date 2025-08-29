@@ -16,3 +16,8 @@ export const Title = styled.Text`
   font-size: 24px;
   color: #fff;
 `;
+
+export const Content = styled.View`
+  flex: 1;
+  padding: 15px;
+`;
