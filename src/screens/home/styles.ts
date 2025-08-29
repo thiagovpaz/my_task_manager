@@ -1,5 +1,5 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 
 import { TextInput } from '../../components/textinput';
 import { Button } from '../../components/button';
@@ -26,6 +26,41 @@ export const Content = styled.View`
   padding: 15px;
 `;
 
+export const ItemContainer = styled.View`
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid ${({ theme }) => theme.colors.black};
+`;
+
+interface ItemTitleProps {
+  completed?: boolean;
+}
+
+export const ItemTitle = styled.Text<ItemTitleProps>`
+  font-size: 20px;
+
+  ${({ completed }) =>
+    completed &&
+    css`
+      text-decoration: line-through;
+      opacity: 0.4;
+    `}
+`;
+
+export const ItemButtonsContainer = styled.View`
+  flex-direction: row;
+  gap: 10px;
+`;
+
+export const ItemButton = styled(Button)`
+  background-color: transparent;
+`;
+
 export const ListEmpty = styled.Text`
   flex: 1;
   font-size: 18px;
@@ -41,6 +76,7 @@ export const QuickTaskContainer = styled.View`
   justify-content: center;
   align-items: center;
   gap: 15px;
+  background-color: #fff;
 `;
 
 export const QuickTaskInput = styled(TextInput)`

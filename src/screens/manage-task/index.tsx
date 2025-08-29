@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
@@ -8,8 +8,10 @@ import {
   useNavigation,
   useRoute,
 } from '@react-navigation/native';
+import * as Crypto from 'expo-crypto';
 
 import { MainStackParamList } from '../../navigation';
+import { useTaskStore } from '../../store';
 import { Button } from '../../components/button';
 import { Switch } from '../../components/switch';
 import { TextInput } from '../../components/textinput';
@@ -23,7 +25,7 @@ type FormData = {
 };
 
 const schema = z.object({
-  title: z.string().min(1, 'Obrigatório'),
+  title: z.string().min(1, 'Título obrigatório'),
   description: z.string().optional(),
   completed: z.boolean(),
 });
@@ -31,6 +33,8 @@ const schema = z.object({
 const ManageTaskScreen = () => {
   const { goBack } = useNavigation<NavigationProp<MainStackParamList>>();
   const { params } = useRoute<RouteProp<MainStackParamList>>();
+
+  const { addTask, updateTask, getTaskById } = useTaskStore();
 
   const id = params?.id;
 
@@ -41,8 +45,8 @@ const ManageTaskScreen = () => {
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
-      title: 'Tarefa 0001',
-      description: 'Tarefa 0001',
+      title: '',
+      description: '',
       completed: false,
     },
     resolver: zodResolver(schema),
@@ -51,18 +55,29 @@ const ManageTaskScreen = () => {
   const onSubmit = useCallback(
     (data: FormData) => {
       if (id) {
-        // UPDATE
+        updateTask(id, { id, ...data });
       } else {
-        // CREATE
+        addTask({
+          id: Crypto.randomUUID(),
+          ...data,
+        });
       }
+
+      goBack();
     },
     [id],
   );
 
+  useEffect(() => {
+    if (id) {
+      reset(getTaskById(id));
+    }
+  }, [id]);
+
   return (
     <Container>
       <Header>
-        <Title>Gerenciar Task</Title>
+        <Title>{id ? 'Gerenciar Task' : 'Criar Task'}</Title>
       </Header>
 
       <Content>
@@ -112,7 +127,9 @@ const ManageTaskScreen = () => {
           }}
         />
 
-        <Button onPress={handleSubmit(onSubmit)}>Salvar</Button>
+        <Button onPress={handleSubmit(onSubmit)}>
+          {id ? 'Atualizar' : 'Salvar'}
+        </Button>
       </Content>
     </Container>
   );
