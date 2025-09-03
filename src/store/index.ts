@@ -50,7 +50,10 @@ export const useTaskStore = create<TaskState>()(
       setFilter: (filter) => set({ filter }),
       getFilteredTasks: () => {
         const { tasks, filter } = get();
+
         switch (filter) {
+          case 'all':
+            return tasks.filter((task) => !task.completed || task.completed);
           case 'active':
             return tasks.filter((task) => !task.completed);
           case 'completed':

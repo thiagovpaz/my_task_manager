@@ -16,6 +16,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <Container
+      accessibilityRole="button"
       activeOpacity={0.7}
       {...rest}
       disabled={isLoading || rest.disabled}

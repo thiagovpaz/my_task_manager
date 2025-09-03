@@ -39,7 +39,7 @@ const HomeScreen = () => {
   } = useTaskStore();
 
   const handleAddQuickTask = useCallback(() => {
-    if (quickTask) {
+    if (!!quickTask) {
       const task: Task = {
         id: Crypto.randomUUID(),
         title: quickTask,
@@ -51,6 +51,8 @@ const HomeScreen = () => {
       setQuickTask('');
 
       Keyboard.dismiss();
+    } else {
+      navigate('ManageTaskScreen', {});
     }
   }, [quickTask]);
 
@@ -84,7 +86,11 @@ const HomeScreen = () => {
               <ItemTitle completed={item.completed}>{item.title}</ItemTitle>
 
               <ItemButtonsContainer>
-                <ItemButton onPress={() => toggleTask(item.id)}>
+                <ItemButton
+                  accessibilityRole="button"
+                  accessibilityLabel="toggle-task"
+                  onPress={() => toggleTask(item.id)}
+                >
                   <Ionicons
                     name="checkmark-circle"
                     size={24}
@@ -92,13 +98,19 @@ const HomeScreen = () => {
                   />
                 </ItemButton>
                 <ItemButton
+                  accessibilityRole="button"
+                  accessibilityLabel="edit-task"
                   onPress={() => {
                     navigate('ManageTaskScreen', { id: item.id });
                   }}
                 >
                   <Ionicons name="create-outline" size={24} color="blue" />
                 </ItemButton>
-                <ItemButton onPress={() => handleRemoveTask(item)}>
+                <ItemButton
+                  accessibilityRole="button"
+                  accessibilityLabel="remove-task"
+                  onPress={() => handleRemoveTask(item)}
+                >
                   <Ionicons name="trash" size={24} color="red" />
                 </ItemButton>
               </ItemButtonsContainer>
@@ -145,11 +157,7 @@ const HomeScreen = () => {
 
         <QuickTaskButton
           onPress={() => {
-            if (quickTask) {
-              handleAddQuickTask();
-            } else {
-              navigate('ManageTaskScreen', {});
-            }
+            handleAddQuickTask();
           }}
         >
           Nova

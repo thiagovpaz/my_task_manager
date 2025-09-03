@@ -33,13 +33,38 @@ Gerenciador de tarefas desenvolvido em **React Native com Expo**, focado em simp
 3. Execute o app:
 
    ```bash
-   npm start
+    npm start
+    # ou
+    yarn start
    ```
 
 4. Rodar no emulador/dispositivo:
+
    ```bash
    npm run android
+   # ou
+   yarn android
    ```
+
+5. Executar todos os testes:
+
+   ```bash
+     npm test
+     # ou
+     yarn test
+   ```
+
+6. Executar todos os testes:
+
+   ```bash
+    npm test src/__tests__/components/button.spec.tsx
+    # ou
+    yarn test src/**tests**/components/button.spec.tsx
+   ```
+
+## Cobertura de testes:
+
+![alt text](/.github/assets/coverage.png)
 
 ---
 
@@ -70,6 +95,18 @@ Gerenciador de tarefas desenvolvido em **React Native com Expo**, focado em simp
 
 - Padrão de mercado para **navegação entre telas** em apps React Native.
 - Suporte a stack navigation.
+
+### Jest
+
+- Framework de testes padrão no ecossistema React Native.
+
+### jest-expo
+
+- Adaptador do Jest para projetos Expo, simplificando mocks de APIs nativas e integrando funcionalidades de React Native.
+
+### React Native Testing Library (RTL)
+
+- Facilita a renderização de componentes, simulação de eventos e verificação do comportamento da UI de forma próxima ao uso real do usuário.
 
 ---
 
