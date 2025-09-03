@@ -1,71 +1,26 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
+import { useTaskStore as useZustandStore } from './zustand-store';
+import { mobxStore } from './mobx-store';
 
-export type Task = {
-  id: string;
-  title: string;
-  description?: string;
-  completed: boolean;
-};
+const STORE_TYPE = 'zustand'; //process.env.EXPO_PUBLIC_STORE_TYPE || 'zustand';
 
-export type TaskState = {
-  filter: 'all' | 'active' | 'completed';
-  tasks: Task[];
-  addTask: (task: Task) => void;
-  toggleTask: (id: string) => void;
-  removeTask: (id: string) => void;
-  updateTask: (id: string, task: Task) => void;
-  getTaskById: (id: string) => Task | undefined;
-  setFilter: (filter: 'all' | 'active' | 'completed') => void;
-  getFilteredTasks: () => Task[];
-};
+export function useTaskStore() {
+  if (STORE_TYPE === 'zustand') {
+    return useZustandStore();
+  }
 
-export const useTaskStore = create<TaskState>()(
-  persist(
-    (set, get) => ({
-      filter: 'all',
-      tasks: [],
-      addTask: (task: Task) =>
-        set((state) => ({
-          tasks: [...state.tasks, task],
-        })),
-      toggleTask: (id: string) =>
-        set((state) => ({
-          tasks: state.tasks.map((task) =>
-            task.id === id ? { ...task, completed: !task.completed } : task,
-          ),
-        })),
-      removeTask: (id: string) =>
-        set((state) => ({
-          tasks: state.tasks.filter((task) => task.id !== id),
-        })),
-      updateTask: (id: string, updates: Partial<Task>) =>
-        set((state) => ({
-          tasks: state.tasks.map((task) =>
-            task.id === id ? { ...task, ...updates } : task,
-          ),
-        })),
-      getTaskById: (id) => get().tasks.find((task) => task.id === id),
-      setFilter: (filter) => set({ filter }),
-      getFilteredTasks: () => {
-        const { tasks, filter } = get();
+  if (STORE_TYPE === 'mobx') {
+    return {
+      filter: mobxStore.filter,
+      tasks: mobxStore.tasks,
+      addTask: mobxStore.addTask.bind(mobxStore),
+      toggleTask: mobxStore.toggleTask.bind(mobxStore),
+      removeTask: mobxStore.removeTask.bind(mobxStore),
+      updateTask: mobxStore.updateTask.bind(mobxStore),
+      getTaskById: mobxStore.getTaskById.bind(mobxStore),
+      setFilter: mobxStore.setFilter.bind(mobxStore),
+      getFilteredTasks: () => mobxStore.getFilteredTasks(),
+    };
+  }
 
-        switch (filter) {
-          case 'all':
-            return tasks.filter((task) => !task.completed || task.completed);
-          case 'active':
-            return tasks.filter((task) => !task.completed);
-          case 'completed':
-            return tasks.filter((task) => task.completed);
-          default:
-            return tasks;
-        }
-      },
-    }),
-    {
-      name: 'my-todo-storage',
-      storage: createJSONStorage(() => AsyncStorage),
-    },
-  ),
-);
+  throw new Error('Store type inválido. Use zustand ou mobx.');
+}

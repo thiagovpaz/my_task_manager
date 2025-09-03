@@ -10,11 +10,11 @@ import {
 } from '@react-navigation/native';
 import * as Crypto from 'expo-crypto';
 
-import { MainStackParamList } from '../../navigation';
-import { useTaskStore } from '../../store';
-import { Button } from '../../components/button';
-import { Switch } from '../../components/switch';
-import { TextInput } from '../../components/textinput';
+import { MainStackParamList } from '~/navigation';
+import { useTaskStore } from '~/store';
+import { Button } from '~/components/button';
+import { Switch } from '~/components/switch';
+import { TextInput } from '~/components/textinput';
 
 import { Container, Header, Title, Content } from './styles';
 

@@ -3,9 +3,12 @@ import { Alert, FlatList, Keyboard, View } from 'react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import * as Crypto from 'expo-crypto';
+import { observer } from 'mobx-react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { MainStackParamList } from '../../navigation';
-import { Task, useTaskStore } from '../../store';
+import { Task } from '~/store/types';
+import { MainStackParamList } from '~/navigation';
+import { useTaskStore } from '~/store';
 
 import {
   Container,
@@ -24,10 +27,11 @@ import {
   QuickTaskButton,
 } from './styles';
 
-const HomeScreen = () => {
+const HomeScreen = observer(() => {
   const [quickTask, setQuickTask] = useState<string | null>(null);
 
   const { navigate } = useNavigation<NavigationProp<MainStackParamList>>();
+
   const {
     filter,
     tasks,
@@ -126,19 +130,21 @@ const HomeScreen = () => {
                 active={filter === 'all'}
                 onPress={() => setFilter('all')}
               >
-                Todas
+                Todas ({tasks.length})
               </FilterButton>
               <FilterButton
                 active={filter === 'completed'}
                 onPress={() => setFilter('completed')}
               >
-                Concluídas
+                Concluídas (
+                {getFilteredTasks().filter((gf) => gf.completed).length})
               </FilterButton>
               <FilterButton
                 active={filter === 'active'}
                 onPress={() => setFilter('active')}
               >
-                Ativas
+                Ativas (
+                {getFilteredTasks().filter((gf) => !gf.completed).length})
               </FilterButton>
             </FilterContainer>
           }
@@ -165,6 +171,6 @@ const HomeScreen = () => {
       </QuickTaskContainer>
     </Container>
   );
-};
+});
 
 export { HomeScreen };

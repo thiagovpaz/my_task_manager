@@ -39,7 +39,7 @@ interface FilterButtonProps {
 
 export const FilterButton = styled(Button)<FilterButtonProps>`
   background-color: gray;
-  padding: 10px;
+  padding: 8px;
   ${({ active }) =>
     active &&
     css`
