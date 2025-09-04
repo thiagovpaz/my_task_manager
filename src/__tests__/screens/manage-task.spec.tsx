@@ -102,7 +102,6 @@ describe('ManageTaskScreen', () => {
 
     await waitFor(() => {
       expect(useTaskStore().updateTask).toHaveBeenCalledWith(
-        '123',
         expect.objectContaining({
           id: '123',
           title: 'Tarefa existente atualizada',
