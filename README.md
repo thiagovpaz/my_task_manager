@@ -8,6 +8,7 @@ Gerenciador de tarefas desenvolvido em **React Native com Expo**, focado em simp
 - [React Navigation](https://reactnavigation.org/) – Navegação entre telas.
 - [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/) – Controle e validação de formulários.
 - [Zustand](https://github.com/pmndrs/zustand) – Gerenciamento de estado global.
+- [Mobx](https://github.com/mobxjs/mobx) – Gerenciamento de estado global.
 - [AsyncStorage](https://react-native-async-storage.github.io/async-storage/) – Persistência de dados offline.
 - [Styled Components](https://styled-components.com/) – Estilização com CSS-in-JS.
 
