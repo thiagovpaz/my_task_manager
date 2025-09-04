@@ -10,6 +10,12 @@ export const Header = styled.View`
   height: 60px;
   justify-content: center;
   align-items: center;
+  position: relative;
+`;
+
+export const BackButton = styled.TouchableOpacity`
+  position: absolute;
+  left: 15px;
 `;
 
 export const Title = styled.Text`

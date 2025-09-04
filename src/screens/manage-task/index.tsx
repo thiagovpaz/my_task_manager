@@ -9,6 +9,7 @@ import {
   useRoute,
 } from '@react-navigation/native';
 import * as Crypto from 'expo-crypto';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 import { MainStackParamList } from '~/navigation';
 import { useTaskStore } from '~/store';
@@ -16,7 +17,7 @@ import { Button } from '~/components/button';
 import { Switch } from '~/components/switch';
 import { TextInput } from '~/components/textinput';
 
-import { Container, Header, Title, Content } from './styles';
+import { Container, Header, BackButton, Title, Content } from './styles';
 
 type FormData = {
   title: string;
@@ -77,6 +78,9 @@ const ManageTaskScreen = () => {
   return (
     <Container>
       <Header>
+        <BackButton onPress={goBack}>
+          <Ionicons name="chevron-back-outline" color="#fff" size={25} />
+        </BackButton>
         <Title>{id ? 'Gerenciar Task' : 'Criar Task'}</Title>
       </Header>
 

@@ -5,9 +5,10 @@ import { makePersistable } from 'mobx-persist-store';
 import { Task } from './types';
 
 class MobxTaskStore {
-  tasks: Task[] = [];
-
-  filter: 'all' | 'active' | 'completed' = 'all';
+  state = {
+    tasks: [] as Task[],
+    filter: 'all' as 'all' | 'active' | 'completed',
+  };
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
@@ -15,33 +16,33 @@ class MobxTaskStore {
     makePersistable(this, {
       name: 'my-todo-storage',
       storage: AsyncStorage,
-      properties: ['filter', 'tasks'],
+      properties: ['state'],
     });
   }
 
   addTask(task: Task) {
-    this.tasks.push(task);
+    this.state.tasks.push(task);
   }
 
   updateTask(id: string, data: Partial<Task>) {
-    const index = this.tasks.findIndex((t) => t.id === id);
+    const index = this.state.tasks.findIndex((t) => t.id === id);
 
     if (index !== -1) {
-      this.tasks[index] = { ...this.tasks[index], ...data };
+      this.state.tasks[index] = { ...this.state.tasks[index], ...data };
     }
   }
 
   getTaskById(id: string) {
-    return this.tasks.find((t) => t.id === id);
+    return this.state.tasks.find((t) => t.id === id);
   }
 
   removeTask(id: string) {
-    this.tasks = this.tasks.filter((t) => t.id !== id);
+    this.state.tasks = this.state.tasks.filter((t) => t.id !== id);
   }
 
   toggleTask(id: string) {
     runInAction(() => {
-      const task = this.tasks.find((t) => t.id === id);
+      const task = this.state.tasks.find((t) => t.id === id);
 
       if (task) {
         task.completed = !task.completed;
@@ -50,17 +51,17 @@ class MobxTaskStore {
   }
 
   setFilter(filter: 'all' | 'active' | 'completed') {
-    this.filter = filter;
+    this.state.filter = filter;
   }
 
   getFilteredTasks() {
-    switch (this.filter) {
+    switch (this.state.filter) {
       case 'completed':
-        return this.tasks.filter((t) => t.completed);
+        return this.state.tasks.filter((t) => t.completed);
       case 'active':
-        return this.tasks.filter((t) => !t.completed);
+        return this.state.tasks.filter((t) => !t.completed);
       default:
-        return this.tasks;
+        return this.state.tasks;
     }
   }
 }

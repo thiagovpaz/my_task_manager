@@ -1,7 +1,7 @@
 import { useTaskStore as useZustandStore } from './zustand-store';
 import { mobxStore } from './mobx-store';
 
-const STORE_TYPE = 'zustand'; //process.env.EXPO_PUBLIC_STORE_TYPE || 'zustand';
+const STORE_TYPE = process.env.EXPO_PUBLIC_STORE_TYPE || 'zustand';
 
 export function useTaskStore() {
   if (STORE_TYPE === 'zustand') {
@@ -10,8 +10,8 @@ export function useTaskStore() {
 
   if (STORE_TYPE === 'mobx') {
     return {
-      filter: mobxStore.filter,
-      tasks: mobxStore.tasks,
+      filter: mobxStore.state.filter,
+      tasks: mobxStore.state.tasks,
       addTask: mobxStore.addTask.bind(mobxStore),
       toggleTask: mobxStore.toggleTask.bind(mobxStore),
       removeTask: mobxStore.removeTask.bind(mobxStore),

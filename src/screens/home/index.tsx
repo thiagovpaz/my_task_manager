@@ -3,8 +3,7 @@ import { Alert, FlatList, Keyboard, View } from 'react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import * as Crypto from 'expo-crypto';
-import { observer } from 'mobx-react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { observer } from 'mobx-react-lite';
 
 import { Task } from '~/store/types';
 import { MainStackParamList } from '~/navigation';

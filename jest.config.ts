@@ -7,7 +7,7 @@ const config: Config = {
   coverageReporters: ['text-summary', 'lcov'],
   preset: 'jest-expo',
   testMatch: ['**/*.spec.(ts|tsx)'],
-  setupFiles: ['./src/__mocks__/setup.ts'],
+  setupFiles: ['<rootDir>/src/__mocks__/setup.ts'],
 };
 
 export default config;

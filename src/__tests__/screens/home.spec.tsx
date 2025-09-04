@@ -139,7 +139,7 @@ describe('HomeScreen', () => {
   it('Filters tasks when clicking "Concluídas"', () => {
     const { getByText } = renderScreen();
 
-    fireEvent.press(getByText('Concluídas'));
+    fireEvent.press(getByText(/Concluídas/));
 
     expect(useTaskStore().setFilter).toHaveBeenCalledWith('completed');
     expect(useTaskStore().getFilteredTasks().length).toBe(1);
@@ -148,7 +148,7 @@ describe('HomeScreen', () => {
   it('Filters tasks when clicking "Ativas"', () => {
     const { getByText } = renderScreen();
 
-    fireEvent.press(getByText('Ativas'));
+    fireEvent.press(getByText(/Ativas/));
 
     expect(useTaskStore().setFilter).toHaveBeenCalledWith('active');
     expect(useTaskStore().getFilteredTasks().length).toBe(1);
@@ -157,7 +157,7 @@ describe('HomeScreen', () => {
   it('Filters tasks when clicking "Todas"', () => {
     const { getByText } = renderScreen();
 
-    fireEvent.press(getByText('Todas'));
+    fireEvent.press(getByText(/Todas/));
 
     expect(useTaskStore().setFilter).toHaveBeenCalledWith('all');
     expect(useTaskStore().tasks.length).toBe(2);
