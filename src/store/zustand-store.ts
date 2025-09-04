@@ -10,7 +10,7 @@ export type TaskState = {
   addTask: (task: Task) => void;
   toggleTask: (id: string) => void;
   removeTask: (id: string) => void;
-  updateTask: (id: string, task: Task) => void;
+  updateTask: (task: Partial<Task>) => void;
   getTaskById: (id: string) => Task | undefined;
   setFilter: (filter: 'all' | 'active' | 'completed') => void;
   getFilteredTasks: () => Task[];
@@ -35,10 +35,10 @@ export const useTaskStore = create<TaskState>()(
         set((state) => ({
           tasks: state.tasks.filter((task) => task.id !== id),
         })),
-      updateTask: (id: string, updates: Partial<Task>) =>
+      updateTask: (task: Partial<Task>) =>
         set((state) => ({
-          tasks: state.tasks.map((task) =>
-            task.id === id ? { ...task, ...updates } : task,
+          tasks: state.tasks.map((t) =>
+            t.id === task.id ? { ...task, ...t } : t,
           ),
         })),
       getTaskById: (id) => get().tasks.find((task) => task.id === id),
@@ -59,7 +59,7 @@ export const useTaskStore = create<TaskState>()(
       },
     }),
     {
-      name: 'my-todo-storage',
+      name: 'persist:my-todo-storage',
       storage: createJSONStorage(() => AsyncStorage),
     },
   ),

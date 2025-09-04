@@ -135,15 +135,13 @@ const HomeScreen = observer(() => {
                 active={filter === 'completed'}
                 onPress={() => setFilter('completed')}
               >
-                Concluídas (
-                {getFilteredTasks().filter((gf) => gf.completed).length})
+                Concluídas ({tasks.filter((t) => t.completed).length})
               </FilterButton>
               <FilterButton
                 active={filter === 'active'}
                 onPress={() => setFilter('active')}
               >
-                Ativas (
-                {getFilteredTasks().filter((gf) => !gf.completed).length})
+                Ativas ({tasks.filter((t) => !t.completed).length})
               </FilterButton>
             </FilterContainer>
           }

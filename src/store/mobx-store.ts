@@ -14,9 +14,10 @@ class MobxTaskStore {
     makeAutoObservable(this, {}, { autoBind: true });
 
     makePersistable(this, {
-      name: 'my-todo-storage',
+      name: 'persist:my-todo-storage',
       storage: AsyncStorage,
       properties: ['state'],
+      debugMode: true,
     });
   }
 
@@ -24,11 +25,11 @@ class MobxTaskStore {
     this.state.tasks.push(task);
   }
 
-  updateTask(id: string, data: Partial<Task>) {
-    const index = this.state.tasks.findIndex((t) => t.id === id);
+  updateTask(task: Partial<Task>) {
+    const index = this.state.tasks.findIndex((t) => t.id === task.id);
 
     if (index !== -1) {
-      this.state.tasks[index] = { ...this.state.tasks[index], ...data };
+      this.state.tasks[index] = { ...this.state.tasks[index], ...task };
     }
   }
 

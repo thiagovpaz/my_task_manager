@@ -56,7 +56,7 @@ const ManageTaskScreen = () => {
   const onSubmit = useCallback(
     (data: FormData) => {
       if (id) {
-        updateTask(id, { id, ...data });
+        updateTask({ id, ...data });
       } else {
         addTask({
           id: Crypto.randomUUID(),
