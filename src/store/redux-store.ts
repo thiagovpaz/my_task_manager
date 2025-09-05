@@ -23,7 +23,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const persistConfig = {
-  key: 'my-todo-storage',
+  key: 'redux:my-todo-storage',
   storage: AsyncStorage,
   whitelist: ['task'],
 };

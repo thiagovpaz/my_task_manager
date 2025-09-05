@@ -59,7 +59,7 @@ export const useTaskStore = create<TaskState>()(
       },
     }),
     {
-      name: 'persist:my-todo-storage',
+      name: 'zustand:my-todo-storage',
       storage: createJSONStorage(() => AsyncStorage),
     },
   ),

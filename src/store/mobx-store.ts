@@ -14,7 +14,7 @@ class MobxTaskStore {
     makeAutoObservable(this, {}, { autoBind: true });
 
     makePersistable(this, {
-      name: 'persist:my-todo-storage',
+      name: 'mobx:my-todo-storage',
       storage: AsyncStorage,
       properties: ['state'],
       debugMode: true,

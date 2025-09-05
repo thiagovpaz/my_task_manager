@@ -6,13 +6,16 @@ import { Provider } from 'react-redux';
 import { MainNavigation } from './navigation';
 import { theme } from './styles/theme';
 import { store, reduxStore } from './store/redux-store';
+import { TaskProvider } from './store/context-store';
 
 const App = () => {
   return (
     <Provider store={store}>
       <PersistGate persistor={reduxStore} loading={null}>
         <ThemeProvider theme={theme}>
-          <MainNavigation />
+          <TaskProvider>
+            <MainNavigation />
+          </TaskProvider>
 
           <StatusBar style="auto" />
         </ThemeProvider>

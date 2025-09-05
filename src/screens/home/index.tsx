@@ -77,7 +77,7 @@ const HomeScreen = observer(() => {
   return (
     <Container>
       <Header>
-        <Title>Tarefas ({tasks.length})</Title>
+        <Title>Tarefas ({tasks?.length})</Title>
       </Header>
 
       <Content>
@@ -129,19 +129,19 @@ const HomeScreen = observer(() => {
                 active={filter === 'all'}
                 onPress={() => setFilter('all')}
               >
-                Todas ({tasks.length})
+                Todas ({tasks?.length})
               </FilterButton>
               <FilterButton
                 active={filter === 'completed'}
                 onPress={() => setFilter('completed')}
               >
-                Concluídas ({tasks.filter((t) => t.completed).length})
+                Concluídas ({tasks.filter((t) => t.completed)?.length})
               </FilterButton>
               <FilterButton
                 active={filter === 'active'}
                 onPress={() => setFilter('active')}
               >
-                Ativas ({tasks.filter((t) => !t.completed).length})
+                Ativas ({tasks.filter((t) => !t.completed)?.length})
               </FilterButton>
             </FilterContainer>
           }

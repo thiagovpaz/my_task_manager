@@ -10,6 +10,7 @@ import {
   setFilter,
   selectFilteredTasks,
 } from './redux-store';
+import { useContextTaskStore } from './context-store';
 import { Task } from './types';
 
 const STORE_TYPE = process.env.EXPO_PUBLIC_STORE_TYPE || 'zustand';
@@ -52,6 +53,10 @@ export function useTaskStore() {
       getTaskById: (id: string) => tasks.find((t: any) => t.id === id),
       getFilteredTasks: () => selectedFilteredTasks,
     };
+  }
+
+  if (STORE_TYPE === 'context') {
+    return useContextTaskStore();
   }
 
   throw new Error('Store type inválido. Use zustand ou mobx.');
